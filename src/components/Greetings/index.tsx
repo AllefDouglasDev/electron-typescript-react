@@ -1,11 +1,16 @@
 import { Button } from '../Button'
 import { Container, Image, Text } from './styles'
+import userService from '../../services/user'
 
 export function Greetings() {
-  function handleSayHello() {
-    window.Main.sendMessage('Hello World');
+  async function handleSayHello() {
+    try {
+      const response = await userService.findOne(1)
 
-    console.log('Message sent! Check main process log in terminal.')
+      console.log('response', response)
+    } catch (err) {
+      console.log('Error', err)
+    }
   }
 
   return (
@@ -14,9 +19,10 @@ export function Greetings() {
         src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg"
         alt="ReactJS logo"
       />
-      <Text>An Electron boilerplate including TypeScript, React, Jest and ESLint.</Text>
+      <Text>
+        An Electron boilerplate including TypeScript, React, Jest and ESLint.
+      </Text>
       <Button onClick={handleSayHello}>Send message to main process</Button>
     </Container>
   )
 }
- 
